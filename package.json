@@ -1,0 +1,19 @@
+{
+  "name": "board-server",
+  "version": "1.0.0",
+  "description": "Server for the Board ( NodeJS, Typescript, GraphQL ... )",
+  "main": "index.js",
+  "repository": "https://github.com/seogenie/board-server",
+  "author": "seogenie <seogenie@naver.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "cd src && nodemon --exec ts-node index.ts -e ts,graphql"
+  },
+  "devDependencies": {
+    "@types/node": "^10.5.3",
+    "nodemon": "^1.18.3",
+    "ts-node": "^7.0.0",
+    "tslint-config-prettier": "^1.14.0",
+    "typescript": "^2.9.2"
+  }
+}
