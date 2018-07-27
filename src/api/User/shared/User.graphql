@@ -1,0 +1,12 @@
+type User {
+    id: Int!
+    name: String
+    profilePhoto: String
+    email: String
+    verifiedEmail: Boolean!
+    phoneNumber: String
+    verifiedPhoneNumber: Boolean!
+    password: String
+    createAt: String!
+    updateAt: String
+}

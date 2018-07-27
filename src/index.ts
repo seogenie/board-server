@@ -1,5 +1,11 @@
+import dotenv from "dotenv"
+dotenv.config()
+
+import { createConnection } from "typeorm"
 import { Options } from "graphql-yoga";
 import app from "./app"
+import connectionOptions from "./ormconfig";
+
 
 const PORT : number | string = process.env.PORT || 4000
 const PLAYGROUND : string = "/playground"
@@ -13,4 +19,8 @@ const appOptions : Options = {
 
 const checkAppStart = () => console.log(`사용하는 포트 번호 : ${PORT}`)
 
-app.start(appOptions, checkAppStart)
+createConnection(connectionOptions).then(() => {
+    app
+    .start(appOptions, checkAppStart)
+    .catch(error => console.log(error))
+})
