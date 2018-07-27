@@ -1,0 +1,10 @@
+type Query {
+  sayBaby(name: String!): Seojin!
+  sayHello: String!
+}
+
+type Seojin {
+  text: String!
+  error: Boolean!
+  iswhat: Int
+}
