@@ -7,6 +7,9 @@ type User {
     phoneNumber: String
     verifiedPhoneNumber: Boolean!
     password: String
+    verification: [Verification]
+    chat: Chat
+    message: [Message]
     createAt: String!
     updateAt: String
 }

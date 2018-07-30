@@ -1,3 +1,21 @@
+type Chat {
+  id: Int!
+  message: [Message]!
+  participants: [User]!
+  createdAt: String!
+  updatedAt: String
+}
+
+type Message {
+  id: Int!
+  text: String!
+  # chatId: Int
+  chat: Chat!
+  user: User!
+  createdAt: String!
+  updatedAt: String
+}
+
 type Query {
   sayBaby(name: String!): Seojin!
   sayHello: String!
@@ -18,6 +36,20 @@ type User {
   phoneNumber: String
   verifiedPhoneNumber: Boolean!
   password: String
+  verification: [Verification]
+  chat: Chat
+  message: [Message]
   createAt: String!
   updateAt: String
+}
+
+type Verification {
+  id: Int!
+  target: String!
+  payload: String!
+  key: String!
+  used: Boolean!
+  user: User!
+  createdAt: String!
+  updatedAt: String!
 }

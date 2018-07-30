@@ -7,12 +7,17 @@ import {
     CreateDateColumn,
     UpdateDateColumn,
     BeforeInsert,
-    BeforeUpdate
+    BeforeUpdate,
+    ManyToOne,
+    OneToMany
 } from "typeorm";
 import { 
     IsEmail, 
     IsInt 
 } from "class-validator";
+import Chat from "./Chat";
+import Message from "./Message"
+import Verification from "./Verification";
 
 const BCRYPT_POUNDS = 10;
 
@@ -44,6 +49,15 @@ class User extends BaseEntity {
 
     @Column({ type:"text"})
     password: string;
+
+    @OneToMany(type => Verification, verification=>verification.user)
+    verification: Verification[]
+
+    @ManyToOne(type => Chat, chat => chat.participants)
+    chat: Chat
+
+    @OneToMany(type=> Message, message => message.user)
+    messages: Message[]
 
     @CreateDateColumn()
     createAt: string;
