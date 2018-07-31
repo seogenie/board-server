@@ -27,6 +27,16 @@ type Seojin {
   iswhat: Int
 }
 
+type FacebookConnectResponse {
+  ok: Boolean!
+  error: String
+  token: String
+}
+
+type Mutation {
+  FacebookConnect(name: String!, email: String, facebookId: String!): FacebookConnectResponse!
+}
+
 type User {
   id: Int!
   name: String
@@ -37,6 +47,7 @@ type User {
   verifiedPhoneNumber: Boolean!
   password: String
   verification: [Verification]
+  facebookId: String
   chat: Chat
   message: [Message]
   createAt: String!
