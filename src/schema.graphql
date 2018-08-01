@@ -27,14 +27,21 @@ type Seojin {
   iswhat: Int
 }
 
-type FacebookConnectResponse {
+type EmailSignInResponse {
   ok: Boolean!
   error: String
   token: String
 }
 
 type Mutation {
+  EmailSignIn(email: String!, password: String!): EmailSignInResponse!
   FacebookConnect(name: String!, email: String, facebookId: String!): FacebookConnectResponse!
+}
+
+type FacebookConnectResponse {
+  ok: Boolean!
+  error: String
+  token: String
 }
 
 type User {

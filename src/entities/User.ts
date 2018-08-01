@@ -68,7 +68,7 @@ class User extends BaseEntity {
     @UpdateDateColumn()
     updateAt: string;
 
-    public compatePassword(password: string): Promise<boolean>{
+    public comparePassword(password: string): Promise<boolean>{
         return bcrypt.compare(password, this.password)
     }
 
