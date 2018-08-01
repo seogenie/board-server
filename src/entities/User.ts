@@ -17,7 +17,6 @@ import {
 } from "class-validator";
 import Chat from "./Chat";
 import Message from "./Message"
-import Verification from "./Verification";
 
 const BCRYPT_POUNDS = 10;
 
@@ -49,9 +48,6 @@ class User extends BaseEntity {
 
     @Column({ type:"text", nullable : true})
     password: string;
-
-    @OneToMany(type => Verification, verification=>verification.user)
-    verification: Verification[]
 
     @Column({ type: "text", nullable:true})
     facebookId: string

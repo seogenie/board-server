@@ -1,4 +1,4 @@
-export const typeDefs = ["type Chat {\n  id: Int!\n  message: [Message]!\n  participants: [User]!\n  createdAt: String!\n  updatedAt: String\n}\n\ntype Message {\n  id: Int!\n  text: String!\n  # chatId: Int\n  chat: Chat!\n  user: User!\n  createdAt: String!\n  updatedAt: String\n}\n\ntype Query {\n  sayBaby(name: String!): Seojin!\n  sayHello: String!\n}\n\ntype Seojin {\n  text: String!\n  error: Boolean!\n  iswhat: Int\n}\n\ntype EmailSignInResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype Mutation {\n  EmailSignIn(email: String!, password: String!): EmailSignInResponse!\n  FacebookConnect(name: String!, email: String, facebookId: String!): FacebookConnectResponse!\n}\n\ntype FacebookConnectResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype User {\n  id: Int!\n  name: String\n  profilePhoto: String\n  email: String\n  verifiedEmail: Boolean!\n  phoneNumber: String\n  verifiedPhoneNumber: Boolean!\n  password: String\n  verification: [Verification]\n  facebookId: String\n  chat: Chat\n  message: [Message]\n  createAt: String!\n  updateAt: String\n}\n\ntype Verification {\n  id: Int!\n  target: String!\n  payload: String!\n  key: String!\n  used: Boolean!\n  user: User!\n  createdAt: String!\n  updatedAt: String!\n}\n"];
+export const typeDefs = ["type Chat {\n  id: Int!\n  message: [Message]!\n  participants: [User]!\n  createdAt: String!\n  updatedAt: String\n}\n\ntype Message {\n  id: Int!\n  text: String!\n  # chatId: Int\n  chat: Chat!\n  user: User!\n  createdAt: String!\n  updatedAt: String\n}\n\ntype Query {\n  sayBaby(name: String!): Seojin!\n  sayHello: String!\n}\n\ntype Seojin {\n  text: String!\n  error: Boolean!\n  iswhat: Int\n}\n\ntype CompletePhoneVerificationResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype Mutation {\n  CompletePhoneVerification(phoneNumber: String!, key: String!): CompletePhoneVerificationResponse!\n  EmailSignIn(email: String!, password: String!): EmailSignInResponse!\n  FacebookConnect(name: String!, email: String, facebookId: String!): FacebookConnectResponse!\n  StartPhoneVerification(phoneNumber: String!): StartPhoneVerificationResponse!\n}\n\ntype EmailSignInResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype FacebookConnectResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype User {\n  id: Int!\n  name: String\n  profilePhoto: String\n  email: String\n  verifiedEmail: Boolean!\n  phoneNumber: String\n  verifiedPhoneNumber: Boolean!\n  password: String\n  facebookId: String\n  chat: Chat\n  message: [Message]\n  createAt: String!\n  updateAt: String\n}\n\ntype StartPhoneVerificationResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype Verification {\n  id: Int!\n  target: String!\n  payload: String!\n  key: String!\n  verified: Boolean!\n  createdAt: String!\n  updatedAt: String!\n}\n"];
 /* tslint:disable */
 
 export interface Query {
@@ -17,8 +17,15 @@ export interface Seojin {
 }
 
 export interface Mutation {
+  CompletePhoneVerification: CompletePhoneVerificationResponse;
   EmailSignIn: EmailSignInResponse;
   FacebookConnect: FacebookConnectResponse;
+  StartPhoneVerification: StartPhoneVerificationResponse;
+}
+
+export interface CompletePhoneVerificationMutationArgs {
+  phoneNumber: string;
+  key: string;
 }
 
 export interface EmailSignInMutationArgs {
@@ -32,6 +39,16 @@ export interface FacebookConnectMutationArgs {
   facebookId: string;
 }
 
+export interface StartPhoneVerificationMutationArgs {
+  phoneNumber: string;
+}
+
+export interface CompletePhoneVerificationResponse {
+  ok: boolean;
+  error: string | null;
+  token: string | null;
+}
+
 export interface EmailSignInResponse {
   ok: boolean;
   error: string | null;
@@ -42,6 +59,11 @@ export interface FacebookConnectResponse {
   ok: boolean;
   error: string | null;
   token: string | null;
+}
+
+export interface StartPhoneVerificationResponse {
+  ok: boolean;
+  error: string | null;
 }
 
 export interface Chat {
@@ -70,7 +92,6 @@ export interface User {
   phoneNumber: string | null;
   verifiedPhoneNumber: boolean;
   password: string | null;
-  verification: Array<Verification> | null;
   facebookId: string | null;
   chat: Chat | null;
   message: Array<Message> | null;
@@ -83,8 +104,7 @@ export interface Verification {
   target: string;
   payload: string;
   key: string;
-  used: boolean;
-  user: User;
+  verified: boolean;
   createdAt: string;
   updatedAt: string;
 }

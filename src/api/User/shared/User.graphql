@@ -7,7 +7,6 @@ type User {
     phoneNumber: String
     verifiedPhoneNumber: Boolean!
     password: String
-    verification: [Verification]
     facebookId: String
     chat: Chat
     message: [Message]
