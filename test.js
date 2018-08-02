@@ -11,3 +11,4 @@ function outer(){
 
 var some = outer();
 some();
+

@@ -8,6 +8,7 @@ type Mutation {
     EmalSignUp(
         name: String!
         email: String!
+        phoneNumber: String!
         profilePhoto: String!
         password: String!
     ) : EmalSignUpResponse!
