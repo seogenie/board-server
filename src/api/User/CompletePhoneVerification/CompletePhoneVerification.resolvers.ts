@@ -1,5 +1,7 @@
 import { Resolvers } from "../../../types/resolvers";
 import { CompletePhoneVerificationMutationArgs, CompletePhoneVerificationResponse } from "../../../types/graph";
+import Verification from "../../../entities/Verification";
+import User from "../../../entities/User";
 
 
 const resolvers: Resolvers = {
@@ -9,8 +11,47 @@ const resolvers: Resolvers = {
             args: CompletePhoneVerificationMutationArgs
         ): Promise<CompletePhoneVerificationResponse> => {
             const { phoneNumber, key } = args;
-            try{
+            
+            try {
+                const verification = await Verification.findOne({
+                    payload: phoneNumber,
+                    key: key
+                })
+                if (!verification) {
+                    return {
+                        ok: false,
+                        error: "인증번호가 유효하지 않습니다.",
+                        token: null
+                    } 
+                } else {
+                    verification.verified = true
+                    verification.save()
+                }
+            } catch(error) {
+                return {
+                    ok: false,
+                    error: error.message,
+                    token:null
+                }
+            }
 
+            try{
+                const user = await User.findOne({ phoneNumber })
+                if (user) {
+                    user.verifiedPhoneNumber = true;
+                    user.save()
+                    return {
+                        ok: true,
+                        error: null,
+                        token: 'soon'
+                    }
+                } else {
+                    return {
+                        ok: true,
+                        error: null,
+                        token: null
+                    }
+                }
             } catch(error) {
                 return {
                     ok: false,

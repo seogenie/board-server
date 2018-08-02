@@ -1,0 +1,14 @@
+type EmalSignUpResponse {
+    ok: Boolean!
+    error: String
+    token: String
+}
+
+type Mutation {
+    EmalSignUp(
+        name: String!
+        email: String!
+        profilePhoto: String!
+        password: String!
+    ) : EmalSignUpResponse!
+}
