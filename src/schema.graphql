@@ -19,6 +19,7 @@ type Message {
 type Query {
   sayBaby(name: String!): Seojin!
   sayHello: String!
+  GetMyProfile: GetMyProfileResponse!
 }
 
 type Seojin {
@@ -36,7 +37,7 @@ type CompletePhoneVerificationResponse {
 type Mutation {
   CompletePhoneVerification(phoneNumber: String!, key: String!): CompletePhoneVerificationResponse!
   EmailSignIn(email: String!, password: String!): EmailSignInResponse!
-  EmalSignUp(name: String!, email: String!, phoneNumber: String!, profilePhoto: String!, password: String!): EmalSignUpResponse!
+  EmailSignUp(firstName: String!, lastName: String!, email: String!, password: String!, profilePhoto: String!, age: Int!, phoneNumber: String!): EmailSignUpResponse!
   FacebookConnect(name: String!, email: String, facebookId: String!): FacebookConnectResponse!
   StartPhoneVerification(phoneNumber: String!): StartPhoneVerificationResponse!
 }
@@ -47,7 +48,7 @@ type EmailSignInResponse {
   token: String
 }
 
-type EmalSignUpResponse {
+type EmailSignUpResponse {
   ok: Boolean!
   error: String
   token: String
@@ -57,6 +58,12 @@ type FacebookConnectResponse {
   ok: Boolean!
   error: String
   token: String
+}
+
+type GetMyProfileResponse {
+  ok: Boolean!
+  error: String
+  user: User
 }
 
 type User {
